@@ -17,13 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -54,9 +54,9 @@ Route::post('/soni/{product}',[TavarController::class, 'soni'])->name('soni')->m
 // Route::get('/chakout/{sum}',[TavarController::class, 'chakout'])->name('chakout')->middleware('auth');
 
 // Hamma tavarlar
+Route::get('/',[TestController::class,'dash'])->name('dash')->middleware('auth');
 Route::get('/savdo',[TestController::class,'index'])->name('savdo')->middleware('auth');
 Route::get('/activ/{id}',[TestController::class,'activ'])->name('activ')->middleware('auth');
-Route::get('/dash',[TestController::class,'dash'])->name('dash')->middleware('auth');
 Route::get('/xisob/{key}',[TestController::class,'xisob'])->name('xisob')->middleware('auth');
 Route::get('/date',[TestController::class,'date'])->name('date')->middleware('auth');
 

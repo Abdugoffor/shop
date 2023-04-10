@@ -81,7 +81,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Tavarlar</h3>
+                                <h3 class="card-title">Tavarlar : {{ number_format($productdata[0]->amount) }} , {{ number_format($foyda[0]->amount) }}</h3>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive col-12">

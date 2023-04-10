@@ -7,6 +7,7 @@ use App\Models\Tavar;
 use App\Models\Zakaz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class TavarController extends Controller
@@ -14,9 +15,13 @@ class TavarController extends Controller
     public function index()
     {
         $user = Auth::user();
+
+        $productdata = DB::table('tavars')->select(DB::raw('SUM(soni*narx1) as amount'))->get();
+        $foyda = DB::table('tavars')->select(DB::raw('SUM(soni*(narx2-narx1)) as amount'))->get();
+
         $models = Tavar::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(20);
         $cates = Cate::where('user_id', $user->id)->get();
-        return view('tavar', ['models' => $models, 'cates' => $cates]);
+        return view('tavar', ['models' => $models, 'cates' => $cates, 'foyda' => $foyda, 'productdata' => $productdata]);
     }
     public function store(Request $request)
     {
@@ -36,7 +41,7 @@ class TavarController extends Controller
         if ($request->hasfile('img')) {
             $file = $request->file('img');
             $extensions = $file->getClientOriginalExtension();
-            $filename = time().Str::random(40) . '.' . $extensions;
+            $filename = time() . Str::random(40) . '.' . $extensions;
             $file->move('uploded/', $filename);
             $model->img = 'uploded/' . $filename;
         } else {
@@ -71,7 +76,7 @@ class TavarController extends Controller
         if ($request->hasfile('img')) {
             $file = $request->file('img');
             $extensions = $file->getClientOriginalExtension();
-            $filename = time().Str::random(40) . '.' . $extensions;
+            $filename = time() . Str::random(40) . '.' . $extensions;
             $file->move('uploded/', $filename);
             $id->img = 'uploded/' . $filename;
         }
@@ -88,7 +93,7 @@ class TavarController extends Controller
     }
     public function delete(Tavar $id)
     {
-        $zakaz = Zakaz::where('tavar_id',$id->id)->delete();
+        $zakaz = Zakaz::where('tavar_id', $id->id)->delete();
         $id->delete();
         return redirect()->back()->with("Ma'lumot o'chirildi !");
     }
@@ -170,7 +175,7 @@ class TavarController extends Controller
             return redirect()->route('cart');
         }
     }
-    public function chakout($sum)
+    public function chakout()
     {
         // if (session('cart')) {
         //     foreach (session('cart') as $id => $product) {
