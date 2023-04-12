@@ -43,7 +43,7 @@
 
 </head>
 
-<body class="app sidebar-mini ltr light-mode">
+<body class="app sidebar-mini ltr light-mode" >
 
     <!-- GLOBAL-LOADER -->
     <div id="global-loader">

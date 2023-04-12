@@ -100,7 +100,7 @@
                                         @csrf
                                         <div class="mt-3">
                                             <div class="input-group mb-1">
-                                                <input type="text" class="form-control" name="text"
+                                                <input id="input-focus" type="text" name="text" class="form-control"
                                                     placeholder="Qidiruv ...">
                                                 <input type="submit" name="ok" value="Qidiruv"
                                                     class="input-group-text btn btn-outline-primary">
@@ -111,6 +111,12 @@
                             </div>
                         </div>
                     </div>
+                    <script>
+                        // const elInputFocus = document.getElementById('input-focus');
+                        // elInputFocus.setAttribute("autofocus", "")
+                        var a = document.getElementById('input-focus');
+                        a.setAttribute("autofocus", "")
+                    </script>
                     {{-- <div class="col-5">
                         <div class="card">
                             <div class="card-header">

@@ -106,6 +106,7 @@ class TavarController extends Controller
     public function search(Request $request)
     {
         $user = Auth::user();
+        // dd($request->text,$user);
         $request->validate(['text' => 'required']);
 
         $models = Tavar::where('user_id', $user->id)
